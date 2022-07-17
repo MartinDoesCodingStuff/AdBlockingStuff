@@ -1,0 +1,7 @@
+# temp folder, where code is place temporarily
+temp/*
+
+# dashboard folder, removed because I can't code in HTML
+# Yes, there is one, it's just not working at all. Emphasis on "at all".
+src/conscr/dashboard/*
+src/dashboard.html

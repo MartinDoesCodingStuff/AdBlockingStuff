@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "AdBlockingStuff",
+  "version": "1.0-mv2-github",
+  "description": "youtube kids amogus pee poop and fard compilation",
+  "icons": {
+    "16": "icons/icon-16x16.png",
+    "48": "icons/icon-48x48.png",
+    "128": "icons/icon-128x128.png"
+  },
+  "browser_action": {
+  "default_icon": "icons/icon-16x16.png"
+  },
+  "background": {
+    "scripts": ["config.js", "utils/find-missing-files.js", "lists/reglist.js", "lists/adware.js", "consts.js", "utils/cli-interfacing.js", "utils/log-event.js", "bgscr/ad-radar-advanced.js", "bgscr/special-case.js"]
+  },
+  "content_scripts": [
+   {
+    "matches": ["*://*.youtube.com/*","*://*.youtube-nocookie.com/*","*://*.youtu.be/*","*://*.youtube.co.uk/*","*://*.youtube.de/*"],
+    "js": ["conscr/jquery-3.6.0.min.js","conscr/youtube-autoskip.js"]
+   },
+   {
+    "matches":["*://*/*"],
+    "exclude_matches": ["*://*.example.com/pagead/airbag/*", "*://*.grabify.link/*","*://*.bit.ly/*","*://*.adf.ly/*","*://*.goo.gl/*","*://*.tinyurl.com/*","*://*.ow.ly/*","*://*.is.gd/*","*://*.buff.ly/*","*://*.bit.do/*","*://*.mcaf.ee/*","*://*.su.pr/*","*://*.7.ly/*","*://*.admy.link/*","*://*.al.ly/*","*://*.bc.vc/*","*://*.doiop.com/*","*://*.fur.ly/*","*://*.youtu.be/*","*://*.g.co/*"],
+    "js":["conscr/malicious-code-disable.js"],
+    "run_at":"document_start",
+    "all_frames":true,
+    "match_about_blank":true
+    },
+    {
+      "matches":        ["*://*.example.com/pagead/airbag/*", "*://*.grabify.link/*","*://bit.ly/*","*://*.adf.ly/*","*://*.goo.gl/*","*://*.tinyurl.com/*","*://*.ow.ly/*","*://*.is.gd/*","*://*.buff.ly/*","*://*.bit.do/*","*://*.mcaf.ee/*","*://*.su.pr/*","*://*.7.ly/*","*://*.admy.link/*","*://*.al.ly/*","*://*.bc.vc/*","*://*.doiop.com/*","*://*.fur.ly/*","*://*.youtu.be/*","*://*.g.co/*"],
+      "js": ["conscr/malicious-code-disable-urlshort.js"],
+      "run_at":"document_start",
+      "all_frames":true,
+      "match_about_blank":true
+    }
+
+  ],
+  "permissions": ["storage", "background", "activeTab", "tabs", "webRequest", "webRequestBlocking", "<all_urls>"]
+}
