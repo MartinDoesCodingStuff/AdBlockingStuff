@@ -1,4 +1,4 @@
-> This extension uses MV2 and will not work after January 2023. As such development for this extension has been ceased until further notice. See [this](#why-mv2) for details.
+> This extension uses MV2 and will not work after January 2023. As such development for this extension has been ceased until proven otherwise. See [this](#why-mv2) for details.
 
 # AdBlockingStuff
 
@@ -16,7 +16,7 @@ tl;dr, navigator.plugins will not index locally installed extensions. -->
 
 Installation is easy if you know where to look:
 
-1. [Download](#) the extension.
+1. Download the extension.
 2. Open the chrome extension page (chrome://extensions) and locate the "Developer mode" switch, in the top-right corner of the page.
 3. Locate then click the "Load unpacked" button, this takes you to a navigation window. Locate the `src` folder. Select this folder and ignore any warnings regarding MV2 deprecation.
 
@@ -55,7 +55,7 @@ The extension requires certain permissions:
 2. Record caught requests - Record requests blocked by the extension. This includes what URL 
 
 ## Why MV2?
-I made (and actively use) this extension loong before I even thought of uploading this, explaining all of the sloppy code and english. This extension was in active development shortly before Google demanded that 80% of extensions [must become inoperable by 2023](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/). And frankly, I'm too lazy to make a MV3-compatible adblocker because of the extra hurdles and the fact that 1/4 of the features will be nerfed anyway in the MV3 version.
+I made (and actively use) this extension loong before I even thought of uploading this, which explains all of the sloppy code and english. This extension was in active development shortly before Google demanded that 80% of extensions [must become inoperable by 2023](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/). And frankly, I'm too lazy to make a MV3-compatible adblocker because of the extra hurdles and the fact that 1/4 of the features will be nerfed anyway in the MV3 version.
 
 ## License
 Under the [MIT](https://choosealicense.com/licenses/mit/) license. With exception for certain entries that are in [the adlist that comes with this extension](src/lists/), those belong to their respective owners.

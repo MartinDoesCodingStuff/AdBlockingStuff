@@ -1,7 +1,10 @@
-# temp folder, where code is place temporarily
-temp/*
+# temp folder, where code is placed temporarily
+temp/
 
 # dashboard folder, removed because I can't code in HTML
-# Yes, there is one, it's just not working at all. Emphasis on "at all".
+# Yes, I tried and eventually failed to make a GUI for this extension.
 src/conscr/dashboard/
 src/dashboard.html
+
+# release-zip folder, where released versions are stored.
+release-zip/
