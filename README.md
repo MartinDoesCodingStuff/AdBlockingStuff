@@ -1,4 +1,5 @@
-> This extension uses MV2 and will not work after January 2023. As such development for this extension has been ceased until proven otherwise. See [this](#why-mv2) for details.
+<!-- > This extension uses MV2 and will not work after January 2023. As such development for this extension has been ceased until proven otherwise. See [this](#why-mv2) for details. -->
+> I have decided that I will make this extension MV3 compatible. Even if Google made it purposely hard for adblocker devs like me to make it, someone will have to do it and release it on Chrome's ~~malware~~ [disease-ridden web store](https://www.youtube.com/watch?v=8piNvWJHXLY) (that website is a lost cause at this point). The extension will likely be hosted on a seperate repository at some point in the future or in a seperate folder in this repo.
 
 # AdBlockingStuff
 
@@ -41,7 +42,7 @@ You can change the preferences by going to `src/config.js` file.
 
 ### Cannot:
 1. Keep you invincible in shady parts of the interwebs - Domain name registration is as simple as whipping out your credit card and smashing your keyboard until the domain gets registered. So the list has to be massive for the time being.
-2. Keep you safe from accidentally viewing ~~lewd depictions of your waifu at a funeral~~ things that you don't want others to see in a certain gathering - While there is a special section for porn sites, this does not block ALL porn sites (i.e. pornhub, onlyfans etc.). I also made another extension which redirects you to funny [images](https://i.redd.it/qs7uh1ivs4d21.jpg) or [websites](https://reddit.com/r/HentaiFree) if you visit said porn sites. Will release the extension in the not-so-distant future.
+2. Keep you safe from accidentally viewing ~~lewd depictions of your waifu at a funeral~~ things that you don't want others to see in a certain gathering - While there is a special section for porn sites, this does not block ALL porn sites (i.e. pornhub, onlyfans etc.). I also made another extension which redirects you to funny [images](https://i.redd.it/qs7uh1ivs4d21.jpg) or helpful [websites](https://reddit.com/r/HentaiFree) if you visit said porn sites. Will release the extension in the not-so-distant future.
 3. Autoremove the "DiSablE YouR AdBloCker oR We wiLL DIsaBlE YouR ChIld" banners - This adblocker is meant to be stealthy and thus most websites will not even notice that you are blocking ads. But some do slip through, but there is this cool tool called DevTools which can remove elements and modify the site's CSS including unblurring text.
 
 ## Permissions
@@ -58,7 +59,11 @@ The Navigator object in Javascript has been an Achilles Heel in fingerprinting p
 One such example is the navigator.plugins object. This is where a website can look at what extensions you have installed on your computer such as if you have Shockwave Flash installed, so that a site is not executing to thin air. It is also used by many fingerprinting JavaScript libraries to track you as you go. But a simple way to bypass this is to install an extension locally, thereby websites can tell that you don't have any extensions installed, apart from extensions that are core parts of Chromium. Some drawbacks include: Inability to update extensions via the update URL, CORS, and some other things.
 
 ## Why MV2?
-I made (and actively use) this extension loong before I even thought of uploading this, which explains all of the sloppy unoptimized code. This extension was in active development shortly before I knew that Google demanded that 80% of extensions [must become inoperable by 2023](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/). And frankly, I'm too lazy to make a MV3-compatible adblocker because of the extra hurdles and the fact that 1/4 of the features (most of which are this extension's magnum opus) will be nerfed anyway in the MV3 version.
+I made (and actively use) this extension loong before I even thought of uploading this, which explains all of the sloppy unoptimized code. This extension was in active development shortly before I knew that Google demanded that 80% of extensions [must become inoperable by 2023](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/). And frankly, I'm too lazy<sup>[1]</sup> to make a MV3-compatible adblocker because of the extra hurdles and the fact that 1/4 of the features (most of which are this extension's magnum opus) will be nerfed anyway in the MV3 version.
+
+> Notes:
+>
+> \[1\] -  May be subject to change.
 
 ## License
 Under the [MIT](https://choosealicense.com/licenses/mit/) license.
