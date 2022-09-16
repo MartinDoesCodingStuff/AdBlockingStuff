@@ -17,7 +17,7 @@ if ((constBool === 'true') && (isReady == true)) {
 function mainInit() {
 
   // youtube/ytredir
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
 
     if (/^(https?):\/\/([0-9,a-z,-]+\.)*youtube(-nocookie)?\.com(\.[a-z]{2})?\/redirect/.test(d.url)) {
       let original_url = d.url;
@@ -28,7 +28,7 @@ function mainInit() {
   }, { urls: ["*://*.youtube.com/*", "*://*.youtu.be/*", "*://*.youtube-nocookie.com/*", "*://*.youtube.com.ph/*", "*://*.youtube-nocookie.com.ph/*"] }, ["blocking"]);
 
   // xclientdata
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     for (let idx = 0; idx < d.requestHeaders.length; idx++) {
       //*
       if (d.requestHeaders[idx].name.toLowerCase() == 'x-client-data') {
@@ -48,7 +48,7 @@ function mainInit() {
   }, { urls: ['*://*/*'] }, ["blocking", "requestHeaders", "extraHeaders"]);
 
   // googurl
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (/^(https?):\/\/([0-9,a-z,-]+\.)*google(\.\w+){1,2}\/url\?/.test(d.url)) {
       let original_url = d.url;
       var url = new URL(d.url, "https://www.google.com");
@@ -58,7 +58,7 @@ function mainInit() {
       return { redirectUrl: redirect };
     }
   }, { urls: ["*://*.google.com/*"] }, ["blocking"]);
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (regex.search.test(d.url)) {
       let original_url = d.url;
       var url = new URL(d.url);
@@ -74,12 +74,12 @@ function mainInit() {
   }, { urls: ['*://*.google.com/*'] }, ["blocking"]);
 
   // gen204
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (regex.gen204.test(d.url) == true) { return { cancel: true }; }
   }, { urls: ["*://*/*"] }, ["blocking"]);
 
   // fburl
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     let original_url = d.url;
     let url = new URL(d.url);
     let search = new URLSearchParams(url.search);
@@ -101,7 +101,7 @@ function mainInit() {
   // This makes you stand out of the crowd,
   // enable (uncomment) at your own risk.
   //*
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     for (var header of d.requestHeaders) {
       var headername = header.name.toLowerCase();
       if (headername == 'x-client-data' || 'dpr' || 'user-agent' || 'sec-ch-ua' || 'sec-ch-ua-platform' || 'sec-ch-ua-mobile' || 'referer') {
@@ -115,7 +115,7 @@ function mainInit() {
 
 function case_ythttp() {
   bgpa.console.log("[sect] special-case/case_ythttp ====> %cREADY", "color:green");
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     for (var head of d.requestHeaders) {
       head = head.name.toLowerCase();
       if (head == "x-youtube-client-version" || "sec-ch-ua-model" || "dpr") { head.value = '0'; }
@@ -127,7 +127,7 @@ function case_ythttp() {
 
 function case_ytapi() {
   bgpa.console.log("[sect] special-case/case_ytapi =====> %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (d.url.match(regex.ytapi)) {
       logEvent(d, 'ping', 'special-case/case_ytapi');
       return { cancel: true };
@@ -137,7 +137,7 @@ function case_ytapi() {
 
 function case_privacy() {
   bgpa.console.log("[sect] special-case/case_privacy ===> %cREADY", "color:green");
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     for (var header of d.requestHeaders) {
       if (header.name.toLowerCase() == 'x-client-data' || 'user-agent' || 'referer' || 'sec-ch-ua' || 'dpr') { header.value = '0'; }
       if (header.name.toLowerCase() == 'dnt') { header.value = '1'; }
@@ -149,12 +149,12 @@ function case_privacy() {
 
 function case_googlelog() {
   bgpa.console.log("[sect] special-case/case_googlelog => %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(function(d) { if (/^(https?):\/\/([0-9,a-z,-]+\.)*google\.com(\.ph)?\/log\?/.test(d.url)) { logEvent(d, 'ping', 'special-case/case_googlelog'); return { cancel: true }; } }, { urls: ["*://*.google.com/*"] }, ["blocking"]);
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) { if (/^(https?):\/\/([0-9,a-z,-]+\.)*google\.com(\.ph)?\/log\?/.test(d.url)) { logEvent(d, 'ping', 'special-case/case_googlelog'); return { cancel: true }; } }, { urls: ["*://*.google.com/*"] }, ["blocking"]);
 }
 
 function case_gapi() {
   bgpa.console.log("[sect] special-case/case_gapi ======> %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (regex.gapi.test(d.url) == true) {
       logEvent(d, 'ping', 'special-case/case_gapi');
       return { cancel: true };
@@ -164,7 +164,7 @@ function case_gapi() {
 
 function case_resua() {
   bgpa.console.log("[sect] special-case/case_resua =====> %cREADY", "color:green");
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     if (d.type == 'image') {
       for (let header of d.requestHeaders) {
         if (header.name.toLowerCase() == 'user-agent') {
@@ -181,7 +181,7 @@ function case_resua() {
 
 function case_ip() {
   bgpa.console.log("[sect] special-case/case_ip ========> %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     let url = new URL(d.url);
     if (regex.ip.test(url.hostname) == true && ipWhitelist.includes(url.hostname) == false) {
       logEvent(d, 'adware', 'special-case/case_ip');
@@ -192,7 +192,7 @@ function case_ip() {
 
 function case_favicon() {
   bgpa.console.log("[sect] special-case/case_favicon ===> %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeRequest.addListener(function(d) {
     if (regex.favicon.test(d.url) || (d.type == 'x-icon')) {
       return { cancel: true };
     }
@@ -203,7 +203,7 @@ function case_cache() {
   bgpa.console.log("[sect] special-case/case_cache =====> %cREADY", "color:green");
   // The magic sauce. This string means: "do not cache this, ever".
   let ccheader = 'no-cache, no-store, max-age=0';
-  chrome.webRequest.onBeforeSendHeaders.addListener(function(d) {
+  BrowserAPI.webRequest.onBeforeSendHeaders.addListener(function(d) {
     if (d.type == 'image') {
       // cache-control
       for (var idxc = 0; idxc < d.requestHeaders.length; idxc++) {
@@ -217,7 +217,7 @@ function case_cache() {
     }
     return { requestHeaders: d.requestHeaders };
   }, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders", "extraHeaders"]);
-  chrome.webRequest.onHeadersReceived.addListener(function(d) {
+  BrowserAPI.webRequest.onHeadersReceived.addListener(function(d) {
     if (d.type == 'image') {
 
       // cache-control
@@ -246,7 +246,7 @@ function case_cache() {
 
 function case_byregex() {
   bgpa.console.log("[sect] special-case/case_byregex ===> %cREADY", "color:green");
-  chrome.webRequest.onBeforeRequest.addListener(
+  BrowserAPI.webRequest.onBeforeRequest.addListener(
     function(d) {
       for (let i = 0; i < regexList.adware.length; i++) {
         if (regexList.adware[i].test(d.url)) {

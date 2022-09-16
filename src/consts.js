@@ -8,8 +8,13 @@ const constBool = 'true';
 // check value if config.js, lists/reglist.js and lists/adware.js are found
 const isReady = (configBool && reglistBool && adwareBool) === 'true';
 
+// Browser API (This extension is also compatible with Firefox. Much of the APIs used here are the same there)
+// chrome: Google Chrome/Chromium
+// browser: Firefox, Microsoft Edge
+const BrowserAPI = chrome
+
 // access background page, mostly used in console.log
-const bgpa = chrome.extension.getBackgroundPage();
+const bgpa = BrowserAPI.extension.getBackgroundPage();
 
 // console.log styling
 const ccss = {

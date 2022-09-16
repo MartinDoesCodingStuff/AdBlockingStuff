@@ -17,14 +17,15 @@ function logEvent(d, type, caller) {
   incBadge();
   if (log.EnableConsole == true) {
     if (log.opts.origin == true) {
-      if (d.tabId > -1 && d.tabId != 'undefined') {
-        chrome.tabs.get(d.tabId, function(tab) {
-          if (chrome.runtime.lastError) { console.debug("[Debug] err::runtime.lastError: %O", chrome.runtime.lastError); }
-          // tab != undefined ? occ(tab.url) : occ('err::!tab');
-          if (tab) { occ(tab.url); }
-          else if (!tab) { occ('err::!tab'); }
-        });
-      } else { occ('err::tabId: ' + d.tabId); }
+      // if (d.tabId != 'undefined' && d.tabId > -1) {
+      //   BrowserAPI.tabs.get(d.tabId, function(tab) {
+      //     if (BrowserAPI.runtime.lastError) { console.debug("[Debug] err::runtime.lastError: %O", BrowserAPI.runtime.lastError); }
+      //     // tab != undefined ? occ(tab.url) : occ('err::!tab');
+      //     if (tab) { occ(tab.url); }
+      //     else if (!tab) { occ('err::!tab'); }
+      //   });
+      // } else { occ('err::tabId: ' + d.tabId); }
+      getOriginURL(d.tabId, occ)
     } else { occ('Origin logging is disabled'); }
 
     function occ(origin) {
@@ -41,15 +42,16 @@ function logEvent(d, type, caller) {
   }
   if (log.EnableArray == true) {
     if (log.opts.origin == true) {
-      if (d.tabId > -1 && d.tabId != 'undefined') {
-        chrome.tabs.get(d.tabId, function(tab) {
-          if (chrome.runtime.lastError) { oca("err::runtime.lastError"); }
-          // tab != undefined ? oca(tab.url) : oca('err::!tab');
-          if (tab) { oca(tab.url) }
-          if (!tab) { oca('err::!tab') }
-        });
-      } else { oca('err::tabId: ' + d.tabId); }
-    } else { oca('disabled'); }
+      // if (d.tabId > -1 && d.tabId != 'undefined') {
+      //   BrowserAPI.tabs.get(d.tabId, function(tab) {
+      //     if (BrowserAPI.runtime.lastError) { oca("err::runtime.lastError"); }
+      //     // tab != undefined ? oca(tab.url) : oca('err::!tab');
+      //     if (tab) { oca(tab.url); }
+      //     if (!tab) { oca('err::!tab'); }
+      //   });
+      // } else { oca('err::tabId: ' + d.tabId); }
+      getOriginURL(d.tabId, oca)
+    } else { oca('disabled-by-user'); }
 
     function oca(origin) {
       let push = {
@@ -80,11 +82,18 @@ function logEvent(d, type, caller) {
 
 function getOriginURL(tabId, callback) {
   if (tabId > -1 && tabId != 'undefined') {
-    chrome.tabs.get(tabId, function(tab) {
-      if (chrome.runtime.lastError) { callback('err::runtime.lastError: ' + chrome.runtime.lastError); }
-      tab ? callback(tab.url) : callback('err::!tab');
-      if (tab) { callback(tab) }
-    });
+    if (typeof chrome != 'undefined') {
+      BrowserAPI.tabs.get(tabId, function(tab) {
+        if (BrowserAPI.runtime.lastError) { callback('err::runtime.lastError: ' + BrowserAPI.runtime.lastError); }
+        tab ? callback(tab.url) : callback('err::!tab');
+        // if (tab) { callback(tab); }
+      });
+    } else if(typeof browser != 'undefined') {
+      BrowserAPI.tabs.get(tabId).then(function(tab) {
+        if(BrowserAPI.runtime.lastError) { callback('err::runtime.lastError: ' + BrowserAPI.runtime.lastError); }
+        tab ? callback(tab.url) : callback('err::!tab');
+      })
+    }
   } else { callback('err::tabId: ' + tabId); }
 }
 
@@ -112,7 +121,7 @@ function dump() {
 }
 
 function incBadge() {
-  chrome.browserAction.setBadgeText({
+  BrowserAPI.browserAction.setBadgeText({
     text: (
       (log.logOut.ads == true ? dd.reg.length : 0) +
       (log.logOut.adware == true ? dd.adware.length : 0) +

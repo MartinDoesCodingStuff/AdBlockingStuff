@@ -114,6 +114,7 @@ var reglist = [
   "*://*.syndication.twitter.com/*",
   "*://*.geocode.usefomo.com/*",
   "*://*.px-cloud.net/*",
+  "*://*.analytics.slashdotmedia.com/*",
   //#endregion
   
   //#region miscellaneous
@@ -129,7 +130,10 @@ var reglist = [
   "*://*.static.wikia.nocookie.net/*/prebid.js/*", "*://*.static.wikia.nocookie.net/*/tracking-opt-in/*",
   
   // paths
-  // "*://*.nsfwyoutube.com/js/*",
+
+  // BTW, if you want to watch NSFW YouTube videos, I recommend https://github.com/TeamNewPipe/NewPipe/
+  // No need to go to sketchy sites anymore.
+  "*://*.nsfwyoutube.com/js/*", // Breaks the site, if it wasn't broken already. Don't go to this site at all unless you're collecting malware samples.
   "*://*.gstatic.com/youtube/img/promos/*",
   "*://*.youtube.com/pagead/*", "*://*.youtube.com/*/ad.js",
   "*://*.youtube-nocookie.com/pagead/*", "*://*.youtube-nocookie.com/*/ad.js",
